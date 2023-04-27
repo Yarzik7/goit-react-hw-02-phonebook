@@ -26,7 +26,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <form className='form'>
+        <form className="form">
           <input
             type="text"
             name="name"
@@ -37,8 +37,10 @@ class App extends Component {
           <button>Add contact</button>
         </form>
 
-        <ul className='contact-list'></ul>
+        <ul className="contact-list"></ul>
       </div>
     );
   }
 }
+
+export { App };
