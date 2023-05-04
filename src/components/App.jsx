@@ -16,6 +16,7 @@
 // };
 
 import React, { Component } from 'react';
+import { ContactForm } from './ContactForm/ContactForm';
 import { nanoid } from 'nanoid';
 
 class App extends Component {
@@ -55,34 +56,14 @@ class App extends Component {
     return (
       <div>
         <h2>Phonebook</h2>
-
-        <form className="form" onSubmit={this.handleSubmit}>
-          <label htmlFor={this.nameInputId}>Name</label>
-          <input
-            type="text"
-            name="name"
-            id={this.nameInputId}
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-            onChange={this.handleChange}
-            value={name}
-          />
-
-          <label htmlFor={this.numberInputId}>Number</label>
-          <input
-            type="tel"
-            name="number"
-            id={this.numberInputId}
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-            onChange={this.handleChange}
-            value={number}
-          />
-
-          <button>Add contact</button>
-        </form>
+        <ContactForm
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          nameInputId={this.nameInputId}
+          numberInputId={this.numberInputId}
+          name={name}
+          number={number}
+        />
 
         <h2>Contacts:</h2>
 
@@ -99,8 +80,9 @@ class App extends Component {
         />
 
         <ul className="contact-list">
-          {
-            contacts.filter(({name}) => name.toLowerCase().includes(filter.toLowerCase())).map(({ id, name, number }) => (
+          {contacts
+            .filter(({ name }) => name.toLowerCase().includes(filter.toLowerCase()))
+            .map(({ id, name, number }) => (
               <li key={id}>
                 <p>Name: {name}</p>
                 <p>Number: {number}</p>
@@ -112,4 +94,4 @@ class App extends Component {
   }
 }
 
-export { App };
+export { App }
