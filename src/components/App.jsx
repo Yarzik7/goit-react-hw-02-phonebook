@@ -42,15 +42,29 @@ class App extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    const { name, number } = this.state;
+    if (!!~this.getContactIndexByName(name)) {
+      alert(`${name} is already in contact`);
+
+      return;
+    }
+
     this.setState(prevState => {
       return {
         contacts: [
           ...prevState.contacts,
-          { id: nanoid(), name: this.state.name, number: this.state.number },
+          { id: nanoid(), name, number },
         ],
       };
     });
   };
+
+  getContactIndexByName = (name) => {
+    const { contacts } = this.state;
+    return contacts.findIndex(({ name: contactName }) => contactName === name);
+  };
+
+  handleDeleteContact = ({target:{dataset:{name}}}) => this.setState(({contacts}) => {contacts.splice(this.getContactIndexByName(name), 1); console.log(contacts); return {contacts}});
 
   render() {
     const { contacts, name, number, filter } = this.state;
@@ -75,7 +89,11 @@ class App extends Component {
           filter={filter}
         />
 
-        <ContactList contacts={contacts} filter={filter} />
+        <ContactList
+          contacts={contacts}
+          filter={filter}
+          handleDeleteContact={this.handleDeleteContact}
+        />
       </div>
     );
   }
