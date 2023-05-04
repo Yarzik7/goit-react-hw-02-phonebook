@@ -17,6 +17,8 @@
 
 import React, { Component } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
+import { ContactList } from './ContactList/ContactList';
+import { Filter } from './Filter/Filter';
 import { nanoid } from 'nanoid';
 
 class App extends Component {
@@ -67,31 +69,16 @@ class App extends Component {
 
         <h2>Contacts:</h2>
 
-        <label htmlFor={this.filterInputId}>Find contacts by name</label>
-        <input
-          type="tel"
-          name="filter"
-          id={this.filterInputId}
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-          onChange={this.handleChange}
-          value={filter}
+        <Filter
+          filterInputId={this.filterInputId}
+          handleChange={this.handleChange}
+          filter={filter}
         />
 
-        <ul className="contact-list">
-          {contacts
-            .filter(({ name }) => name.toLowerCase().includes(filter.toLowerCase()))
-            .map(({ id, name, number }) => (
-              <li key={id}>
-                <p>Name: {name}</p>
-                <p>Number: {number}</p>
-              </li>
-            ))}
-        </ul>
+        <ContactList contacts={contacts} filter={filter} />
       </div>
     );
   }
 }
 
-export { App }
+export { App };
