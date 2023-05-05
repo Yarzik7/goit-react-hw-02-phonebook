@@ -1,20 +1,3 @@
-// export const App = () => {
-//   return (
-//     <div
-//       style={{
-//         height: '100vh',
-//         display: 'flex',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         fontSize: 40,
-//         color: '#010101'
-//       }}
-//     >
-//       React homework template
-//     </div>
-//   );
-// };
-
 import React, { Component } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
@@ -64,7 +47,7 @@ class App extends Component {
     return contacts.findIndex(({ name: contactName }) => contactName === name);
   };
 
-  handleDeleteContact = ({target:{dataset:{name}}}) => this.setState(({contacts}) => {contacts.splice(this.getContactIndexByName(name), 1); console.log(contacts); return {contacts}});
+  handleDeleteContact = ({target:{dataset:{name}}}) => this.setState(({contacts}) => ({contacts: contacts.filter(({name: contactName}) => contactName !== name)}));
 
   render() {
     const { contacts, name, number, filter } = this.state;
