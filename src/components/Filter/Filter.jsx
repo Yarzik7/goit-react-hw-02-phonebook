@@ -1,4 +1,6 @@
-const Filter = ({ filterInputId, handleChange, filter}) => {
+import PropTypes from 'prop-types';
+
+const Filter = ({ filterInputId, handleChange, filter }) => {
   return (
     <>
       <label htmlFor={filterInputId}>Find contacts by name</label>
@@ -16,4 +18,10 @@ const Filter = ({ filterInputId, handleChange, filter}) => {
   );
 };
 
-export {Filter}
+Filter.propTypes = {
+  filterInputId: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
+};
+
+export default Filter;

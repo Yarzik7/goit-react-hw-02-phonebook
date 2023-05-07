@@ -1,4 +1,5 @@
-import { ContactItem } from 'components/ContactItem/ContactItem';
+import ContactItem from '../ContactItem';
+import PropTypes from 'prop-types';
 
 const ContactList = ({ contacts, filter, handleDeleteContact }) => {
   return (
@@ -17,4 +18,16 @@ const ContactList = ({ contacts, filter, handleDeleteContact }) => {
   );
 };
 
-export { ContactList };
+ContactList.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
+  handleDeleteContact: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
+};
+
+export default ContactList;

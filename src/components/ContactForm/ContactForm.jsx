@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+import css from './ContactForm.module.css';
 
 class ContactForm extends Component {
   state = {
@@ -10,48 +12,59 @@ class ContactForm extends Component {
   nameInputId = nanoid();
   numberInputId = nanoid();
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
     const { handleSubmit } = this.props;
     handleSubmit(this.state);
-  }
+  };
 
   handleChange = ({ target: { name, value } }) => this.setState({ [name]: value });
 
   render() {
-    const { nameInputId, numberInputId } = this.props;
     const { name, number } = this.state;
 
     return (
-      <form className="form" onSubmit={this.handleSubmit}>
-        <label htmlFor={nameInputId}>Name</label>
+      <form className={css.form} onSubmit={this.handleSubmit}>
+        <label htmlFor={this.nameInputId} className={css.label}>
+          Name
+        </label>
         <input
           type="text"
           name="name"
-          id={nameInputId}
+          id={this.nameInputId}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
+          className={css.input}
           onChange={this.handleChange}
           value={name}
         />
 
-        <label htmlFor={numberInputId}>Number</label>
+        <label htmlFor={this.numberInputId} className={css.label}>
+          Number
+        </label>
         <input
           type="tel"
           name="number"
-          id={numberInputId}
+          id={this.numberInputId}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
+          className={css.input}
           onChange={this.handleChange}
           value={number}
         />
 
-        <button>Add contact</button>
+        <button className={css.button}>Add contact</button>
       </form>
     );
   }
 }
 
-export { ContactForm };
+ContactForm.protoTypes = {
+  nameInputId: PropTypes.string.isRequired,
+  numberInputId: PropTypes.string.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};
+
+export default ContactForm;
