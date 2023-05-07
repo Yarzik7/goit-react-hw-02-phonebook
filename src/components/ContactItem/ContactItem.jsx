@@ -1,12 +1,17 @@
 import PropTypes from 'prop-types';
+import { FaTrash } from 'react-icons/fa';
+import css from './ContactItem.module.css';
 
 const ContactItem = ({ name, number, handleDeleteContact }) => {
   return (
-    <li>
-      <p>Name: {name}</p>
-      <p>Number: {number}</p>
-      <button onClick={handleDeleteContact} data-name={name}>
-        Delete
+    <li className={css.contactItem}>
+      <div>
+        <p className={css.caption}>Name: {name}</p>
+        <p className={css.caption}>Number: {number}</p>
+      </div>
+
+      <button type="button" className={css.button} onClick={handleDeleteContact} data-name={name}>
+        <FaTrash />
       </button>
     </li>
   );

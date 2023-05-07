@@ -3,8 +3,10 @@ import css from './Filter.module.css'
 
 const Filter = ({ filterInputId, handleChange, filter }) => {
   return (
-    <>
-      <label htmlFor={filterInputId}>Find contacts by name</label>
+    <div className={css.filterBox}>
+      <label htmlFor={filterInputId} className={css.label}>
+        Find contacts by name
+      </label>
       <input
         type="tel"
         name="filter"
@@ -16,7 +18,7 @@ const Filter = ({ filterInputId, handleChange, filter }) => {
         onChange={handleChange}
         value={filter}
       />
-    </>
+    </div>
   );
 };
 

@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import css from './ContactForm.module.css';
 
+const INITIAL_STATE = {
+  name: '',
+  number: '',
+};
+
 class ContactForm extends Component {
   state = {
-    name: '',
-    number: '',
+    ...INITIAL_STATE,
   };
 
   nameInputId = nanoid();
@@ -16,9 +20,14 @@ class ContactForm extends Component {
     event.preventDefault();
     const { handleSubmit } = this.props;
     handleSubmit(this.state);
+    this.reset();
   };
 
   handleChange = ({ target: { name, value } }) => this.setState({ [name]: value });
+
+  reset = () => {
+    this.setState({ ...INITIAL_STATE });
+  };
 
   render() {
     const { name, number } = this.state;
@@ -55,7 +64,9 @@ class ContactForm extends Component {
           value={number}
         />
 
-        <button className={css.button}>Add contact</button>
+        <button type="submit" className={css.button}>
+          Add contact
+        </button>
       </form>
     );
   }
