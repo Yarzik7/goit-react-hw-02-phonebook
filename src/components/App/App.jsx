@@ -43,6 +43,7 @@ class App extends Component {
     return (
       <div>
         <h1>Phonebook</h1>
+        <p>Book</p>
 
         <ContactForm
           handleSubmit={this.handleSubmit}
