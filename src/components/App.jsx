@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
@@ -16,8 +16,6 @@ class App extends Component {
     filter: '',
   };
 
-  filterInputId = nanoid();
-
   handleChange = ({ target: { name, value } }) => this.setState({ [name]: value });
 
   handleSubmit = contactFormStates => {
@@ -29,14 +27,9 @@ class App extends Component {
       : this.setState(({ contacts }) => ({ contacts: [...contacts, newContact] }));
   };
 
-  handleDeleteContact = ({
-    target: {
-      dataset: { name },
-    },
-  }) =>
-    this.setState(({ contacts }) => ({
-      contacts: contacts.filter(({ name: contactName }) => contactName !== name),
-    }));
+  filteredContactsById = (contacts, contactId) => contacts.filter(({ id }) => contactId !== id)
+
+  handleDeleteContact = contactId => this.setState(({ contacts }) => ({contacts: this.filteredContactsById(contacts, contactId)}));
 
   render() {
     const { contacts, filter } = this.state;
@@ -47,14 +40,11 @@ class App extends Component {
 
         <ContactForm
           handleSubmit={this.handleSubmit}
-          nameInputId={this.nameInputId}
-          numberInputId={this.numberInputId}
         />
 
         <h2 className={css.title}>Contacts:</h2>
 
         <Filter
-          filterInputId={this.filterInputId}
           handleChange={this.handleChange}
           filter={filter}
         />

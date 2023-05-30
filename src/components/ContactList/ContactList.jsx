@@ -12,7 +12,7 @@ const ContactList = ({ contacts, filter, handleDeleteContact }) => {
             key={id}
             name={name}
             number={number}
-            handleDeleteContact={handleDeleteContact}
+            handleDeleteContact={() => handleDeleteContact(id)}
           />
         ))}
     </ul>
@@ -21,7 +21,7 @@ const ContactList = ({ contacts, filter, handleDeleteContact }) => {
 
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(
-    PropTypes.exact({
+    PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,

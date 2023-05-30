@@ -13,6 +13,10 @@ class ContactForm extends Component {
     ...INITIAL_STATE,
   };
 
+  static propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+  };
+
   nameInputId = nanoid();
   numberInputId = nanoid();
 
@@ -25,9 +29,7 @@ class ContactForm extends Component {
 
   handleChange = ({ target: { name, value } }) => this.setState({ [name]: value });
 
-  reset = () => {
-    this.setState({ ...INITIAL_STATE });
-  };
+  reset = () => this.setState({ ...INITIAL_STATE });
 
   render() {
     const { name, number } = this.state;
@@ -41,7 +43,7 @@ class ContactForm extends Component {
           type="text"
           name="name"
           id={this.nameInputId}
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          pattern="^[a-zA-Za-яА-Я]+(([' -][a-zA-Za-яА-Я ])?[a-zA-Za-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
           className={css.input}
