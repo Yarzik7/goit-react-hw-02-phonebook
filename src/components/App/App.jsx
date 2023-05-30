@@ -1,7 +1,7 @@
 import { Component } from 'react';
-import ContactForm from './ContactForm';
-import ContactList from './ContactList';
-import Filter from './Filter';
+import ContactForm from '../ContactForm';
+import ContactList from '../ContactList';
+import Filter from '../Filter';
 import { nanoid } from 'nanoid';
 import css from './App.module.css';
 
@@ -27,9 +27,10 @@ class App extends Component {
       : this.setState(({ contacts }) => ({ contacts: [...contacts, newContact] }));
   };
 
-  filteredContactsById = (contacts, contactId) => contacts.filter(({ id }) => contactId !== id)
+  filteredContactsById = (contacts, contactId) => contacts.filter(({ id }) => contactId !== id);
 
-  handleDeleteContact = contactId => this.setState(({ contacts }) => ({contacts: this.filteredContactsById(contacts, contactId)}));
+  handleDeleteContact = contactId =>
+    this.setState(({ contacts }) => ({ contacts: this.filteredContactsById(contacts, contactId) }));
 
   render() {
     const { contacts, filter } = this.state;
@@ -38,16 +39,11 @@ class App extends Component {
       <div className={css.app}>
         <h1 className={css.appTitle}>Phonebook</h1>
 
-        <ContactForm
-          handleSubmit={this.handleSubmit}
-        />
+        <ContactForm handleSubmit={this.handleSubmit} />
 
         <h2 className={css.title}>Contacts:</h2>
 
-        <Filter
-          handleChange={this.handleChange}
-          filter={filter}
-        />
+        <Filter handleChange={this.handleChange} filter={filter} />
 
         {!contacts.length ? (
           <p className={css.listEmpty}>The contact list is empty!</p>
