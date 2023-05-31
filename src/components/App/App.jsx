@@ -3,6 +3,7 @@ import ContactForm from '../ContactForm';
 import ContactList from '../ContactList';
 import Filter from '../Filter';
 import { nanoid } from 'nanoid';
+import { showNotifyReport } from 'js/notifyFunc';
 import css from './App.module.css';
 
 class App extends Component {
@@ -22,8 +23,10 @@ class App extends Component {
     const { name, number } = contactFormStates;
     const newContact = { id: nanoid(), name, number };
 
-    this.state.contacts.some(({ name: contactName }) => contactName === name)
-      ? alert(`${name} is already in contact`)
+    this.state.contacts.some(
+      ({ name: contactName }) => contactName.toLowerCase() === name.toLowerCase()
+    )
+      ? showNotifyReport(`${name} is already in contact`, 'reportWarning')
       : this.setState(({ contacts }) => ({ contacts: [...contacts, newContact] }));
   };
 
